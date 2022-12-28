@@ -28,14 +28,12 @@ export class RegisterComponent implements OnInit {
     labelName: 'First Name',
     maxLength: 30,
     type: 'text'
-
   };
   contextLastName = {
     controlName: 'lastName',
     labelName: 'Last Name',
     maxLength: 30,
     type: 'text'
-
   };
   contextEmail = {
     controlName: 'email',

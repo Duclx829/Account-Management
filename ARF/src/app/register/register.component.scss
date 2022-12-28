@@ -84,19 +84,6 @@
   }
 }
 
-//.grid {
-//  display: grid;
-//  grid-template-columns: 1fr 1fr;
-//  justify-items: center;
-//  gap: 10px;
-//
-//  &__full {
-//    grid-column-start: 1;
-//    grid-column-end: 3;
-//    width: 100%;
-//  }
-//}
-
 .form-group {
   --transition--duration: 0.2s;
   border: 1px solid var(--clr--light-gray);
@@ -193,13 +180,10 @@
 }
 
 .alert {
-  //  position: absolute;
-  //  left: 0;
-  //  top: 100%;
-  //;
   color: var(--clr--danger);
   font-size: 0.7em;
 }
+
 .border-0{
   border: none;
 }

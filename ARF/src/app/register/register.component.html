@@ -38,49 +38,49 @@
             novalidate
       >
         <div class="d-flex">
-          <ng-container *ngTemplateOutlet="tmplInput;context: contextFirstName"></ng-container>
-          <ng-container *ngTemplateOutlet="tmplInput;context: contextLastName"></ng-container>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextFirstName"></ng-container>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextLastName"></ng-container>
         </div>
         <span
           *ngIf="formAcc.get('firstName').errors || formAcc.get('lastName').errors"
           class="alert"
         >
-          <i
-            class="fa fa-exclamation-circle"></i>&ensp;
+          <i class="fa fa-exclamation-circle"></i>&ensp;
           {{
           formAcc.controls['firstName'].errors
             ? formAcc.controls['firstName'].errors['message']
             : formAcc.controls['lastName'].errors['message']
           }}
         </span>
-        <ng-container *ngTemplateOutlet="tmplInput;context: contextEmail"></ng-container>
+        <ng-container *ngTemplateOutlet="tmplInput; context: contextEmail"></ng-container>
         <span *ngIf="formAcc.controls['email'].errors"
               class="alert"
         >
           <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.get("email").errors["message"]}}
         </span>
         <div class="d-flex">
-          <ng-container *ngTemplateOutlet="tmplInput;context: contextBirthDate"></ng-container>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextBirthDate"></ng-container>
           <fieldset class="d-flex border-0">
-            <ng-container *ngTemplateOutlet="tmplInput;context: contextGenderMale"></ng-container>
-            <ng-container *ngTemplateOutlet="tmplInput;context: contextGenderFemale"></ng-container>
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextGenderMale"></ng-container>
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextGenderFemale"></ng-container>
           </fieldset>
         </div>
-        <ng-container *ngTemplateOutlet="tmplInput;context: contextPhone"></ng-container>
+        <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
         <span *ngIf="formAcc.controls['phone'].errors"
               class="alert"
         >
-          <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.controls['phone'].errors['message']}}
+          <i class="fa fa-exclamation-circle"></i>&ensp;
+          {{formAcc.controls['phone'].errors['message']}}
         </span>
-        <ng-container *ngTemplateOutlet="tmplInput;context: contextAddress"></ng-container>
+        <ng-container *ngTemplateOutlet="tmplInput; context: contextAddress"></ng-container>
         <span *ngIf="formAcc.controls['address'].errors"
               class="alert"
         >
           <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.controls['address'].errors['message']}}
         </span>
         <div class="d-flex">
-          <ng-container *ngTemplateOutlet="tmplInput;context: contextPassword"></ng-container>
-          <ng-container *ngTemplateOutlet="tmplInput;context: contextConfirm"></ng-container>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextPassword"></ng-container>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextConfirm"></ng-container>
         </div>
         <span
           *ngIf="(formAcc.get('password').errors)"
@@ -92,9 +92,9 @@
           <label for="passwordToggle"
                  class="grid__full text-dark"
           >
-            <input id="passwordToggle"
+            <input [checked]="showPassword"
+                   id="passwordToggle"
                    type="checkbox"
-                   [checked]="showPassword"
                    (change)="togglePassword()"
             >
             Show password
@@ -116,7 +116,9 @@
     </div>
     <div class="frame__right">
       <div class="frame__img">
-        <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="">
+        <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
+             alt=""
+        >
         <span>One account. All of Google working for you.</span>
       </div>
     </div>
@@ -126,7 +128,6 @@
                let-labelName="labelName"
                let-maxLength="maxLength"
                let-inputType="type"
-               let-isRequired=isRequired
   >
     <div class="form-group"
          [class.danger]="formAcc.controls[controlName]?.errors">
