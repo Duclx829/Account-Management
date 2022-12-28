@@ -24,18 +24,18 @@ export function validateName(formGroup: AbstractControl) {
   const lastNameValue = lastNameControl.value;
   let message = "";
   if (firstNameControl.touched && lastNameControl.touched) {
-    if (firstNameValue === '' && lastNameValue === '') {
+    if (!firstNameValue && !lastNameValue) {
       message = "Enter first name and surname"
       setNameError({required: true}, {required: true}, message);
       return {invalid: true}
     }
   }
-  if (firstNameValue === '' && firstNameControl.touched) {
+  if (!firstNameValue && firstNameControl.touched) {
     message = "Enter first name"
     setNameError({required: true}, null, message);
     return {invalid: true}
   }
-  if (lastNameValue === '' && lastNameControl.touched) {
+  if (!lastNameValue && lastNameControl.touched) {
     lastNameControl.setErrors({required: true});
     message = "Enter last name"
     setNameError(null, {required: true}, message);
