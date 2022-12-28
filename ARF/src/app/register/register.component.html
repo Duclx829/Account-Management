@@ -135,7 +135,7 @@
                let-inputType="inputType"
   >
     <div class="form-group"
-         [class.danger]="formAcc.controls[controlName]?.errors">
+         [class.danger]="formAcc.controls[controlName].errors">
       <input [formControlName]="controlName"
              [id]="inputId"
              [name]="controlName"
