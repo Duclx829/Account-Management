@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {
-  nameValidate,
+  validateName,
   passwordValidate,
   validateAddress,
   validateEmail,
@@ -21,64 +21,74 @@ export class RegisterComponent implements OnInit {
   }
 
   showPassword = false;
-  formAcc: FormGroup = this.fb.group({});
-
+  formAcc: FormGroup;
+  formGender: FormGroup;
   contextFirstName = {
+    inputId: 'firstName',
     controlName: 'firstName',
     labelName: 'First Name',
     maxLength: 30,
-    type: 'text'
+    inputType: 'text'
   };
   contextLastName = {
+    inputId: 'lastName',
     controlName: 'lastName',
     labelName: 'Last Name',
     maxLength: 30,
-    type: 'text'
+    inputType: 'text'
   };
   contextEmail = {
+    inputId: 'email',
     controlName: 'email',
     labelName: 'Email',
     maxLength: 50,
-    type: 'text'
+    inputType: 'text'
   };
   contextBirthDate = {
+    inputId: 'bod',
     controlName: 'birthdate',
     labelName: 'Birth Date',
-    type: 'date'
+    inputType: 'date'
   }
   contextGenderMale = {
-    controlName: 'genderMale',
+    inputId: 'male',
+    controlName: 'gender',
     labelName: 'Male',
-    type: 'radio'
+    inputType: 'radio'
   }
   contextGenderFemale = {
-    controlName: 'genderFemale',
+    inputId: 'female',
+    controlName: 'gender',
     labelName: 'Female',
-    type: 'radio'
+    inputType: 'radio'
   }
   contextPhone = {
+    inputId: 'phone',
     controlName: 'phone',
     labelName: 'Phone',
     maxLength: 10,
-    type: 'text'
+    inputType: 'text'
   };
   contextAddress = {
+    inputId: 'address',
     controlName: 'address',
     labelName: 'Address',
     maxLength: 100,
-    type: 'text'
+    inputType: 'text'
   };
   contextPassword = {
+    inputId: 'password',
     controlName: 'password',
     labelName: 'Password',
     maxLength: 30,
-    type: 'password'
+    inputType: 'password'
   };
   contextConfirm = {
+    inputId: 'confirm',
     controlName: 'confirm',
     labelName: 'Confirm',
     maxLength: 30,
-    type: 'password'
+    inputType: 'password'
   };
 
   ngOnInit(): void {
@@ -86,31 +96,31 @@ export class RegisterComponent implements OnInit {
   }
 
   initForm() {
+    this.formGender = this.fb.group({
+      genderMale: [''],
+      genderFemale: ['']
+    });
     this.formAcc = this.fb.group({
-        firstName: [''],
-        lastName: [''],
-        email: [''],
-        birthdate: ['bod'],
-        gender: this.fb.group({
-          genderMale: ['male'],
-          genderFemale: ['female']
-        }),
-        phone: [''],
-        address: [''],
-        password: [''],
-        confirm: [''],
+        firstName: [],
+        lastName: [],
+        email: [],
+        birthdate: [],
+        gender: [],
+        phone: [],
+        address: [],
+        password: [],
+        confirm: [],
       },
       {
-        validators: [nameValidate, validateEmail, validatePhoneNumber, validateAddress, passwordValidate],
+        validators: [validateName, validateEmail, validatePhoneNumber, validateAddress, passwordValidate],
         updateOn: "blur"
       })
     // this.initFormTest();
   }
 
-
   togglePassword() {
     this.showPassword = !this.showPassword;
-    this.contextPassword.type = this.showPassword ? 'text' : 'password';
+    this.contextPassword.inputType = this.showPassword ? 'text' : 'password';
   }
 
   onSubmit() {
@@ -137,7 +147,7 @@ export class RegisterComponent implements OnInit {
         confirm: [''],
       },
       {
-        validators: [nameValidate, validateEmail, validatePhoneNumber, validateAddress, passwordValidate],
+        validators: [validateName, validateEmail, validatePhoneNumber, validateAddress, passwordValidate],
         updateOn: "change"
       })
 }

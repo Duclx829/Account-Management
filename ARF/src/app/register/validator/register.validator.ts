@@ -13,11 +13,13 @@ const UPPER_CASE_REG = /[A-Z]/;
 const LOWER_CASE_REG = /[a-z]/;
 const NUMBER_ONLY_REG = /[0-9]/;
 const SPECIAL_CHARACTER_REG = /[$&()*,@\[\]^_{}~]/;
+const PASSWORD_MIN_LENGTH = 8;
 
-export function nameValidate(c: AbstractControl) {
-  if (c.pristine) return null;
-  firstNameControl = c.get('firstName');
-  lastNameControl = c.get("lastName");
+
+export function validateName(formGroup: AbstractControl) {
+  if (formGroup.pristine) return null;
+  firstNameControl = formGroup.get('firstName');
+  lastNameControl = formGroup.get("lastName");
   const firstNameValue = firstNameControl?.value;
   const lastNameValue = lastNameControl?.value;
   let message = "";
@@ -53,11 +55,11 @@ function setNameError(firstNameErr: object | null, lastNameErr: object | null, m
   lastNameControl?.setErrors(lastNameErr);
 }
 
-export function validateEmail(c: AbstractControl) {
-  if (c.pristine) return null;
-  emailControl = c.get("email");
+export function validateEmail(formGroup: AbstractControl) {
+  if (formGroup.pristine) return null;
+  emailControl = formGroup.get("email");
   if (!emailControl?.touched) return null;
-  if (emailControl?.value === '') {
+  if (!emailControl?.value) {
     emailControl?.setErrors({
       required: true,
       message: 'Choose a Gmail address'
@@ -75,12 +77,12 @@ export function validateEmail(c: AbstractControl) {
   return null;
 }
 
-export function validatePhoneNumber(c: AbstractControl) {
-  if (c.pristine) return null;
-  phoneControl = c.get("phone");
+export function validatePhoneNumber(formGroup: AbstractControl) {
+  if (formGroup.pristine) return null;
+  phoneControl = formGroup.get("phone");
   const phoneReg = /((09|03|07|08|05)+([0-9]{8})\b)/g;
   if (!phoneControl?.touched) return null;
-  if (phoneControl?.value === '') {
+  if (!phoneControl?.value) {
     phoneControl.setErrors({required: true, message: 'Enter phone number'});
     return {invalid: true}
   }
@@ -92,12 +94,12 @@ export function validatePhoneNumber(c: AbstractControl) {
   return null;
 }
 
-export function validateAddress(c: AbstractControl) {
-  if (c.pristine) return null;
-  addressControl = c.get("address");
+export function validateAddress(formGroup: AbstractControl) {
+  if (formGroup.pristine) return null;
+  addressControl = formGroup.get("address");
   // includeExtraSpace(addressControl?.value)
   if (!addressControl?.touched) return null;
-  if (addressControl?.value === '') {
+  if (!addressControl?.value) {
     addressControl.setErrors({
       required: true,
       message: 'Enter address'
@@ -115,14 +117,14 @@ export function validateAddress(c: AbstractControl) {
   return null;
 }
 
-export function passwordValidate(c: AbstractControl) {
-  if (c.pristine) return null;
-  passwordControl = c.get('password');
-  confirmControl = c.get('confirm');
+export function passwordValidate(formGroup: AbstractControl) {
+  if (formGroup.pristine) return null;
+  passwordControl = formGroup.get('password');
+  confirmControl = formGroup.get('confirm');
   let message = "";
   let score = 0;
   if (!passwordControl?.touched) return null;
-  if (passwordControl?.value === '') {
+  if (!passwordControl?.value) {
     if (confirmControl?.touched) {
       confirmControl?.markAsUntouched();
     }
@@ -130,12 +132,12 @@ export function passwordValidate(c: AbstractControl) {
     setPasswordAndConfirmError({required: true}, null, message);
     return {invalid: true};
   }
-  if (passwordControl?.value.length < 8) {
+  if (passwordControl?.value && passwordControl?.value.length < PASSWORD_MIN_LENGTH) {
     message = "Use 8 characters or more for your password";
     setPasswordAndConfirmError({lengthRequired: true}, null, message);
     return {invalid: true};
   }
-  if (passwordControl?.value.includes(' ')) {
+  if (passwordControl?.value && passwordControl?.value.includes(' ')) {
     message = "Password does not allow spaces";
     setPasswordAndConfirmError({lengthRequired: true}, null, message);
     return {invalid: true};
@@ -152,7 +154,7 @@ export function passwordValidate(c: AbstractControl) {
     return {invalid: true};
   }
   if (!confirmControl?.touched) return null;
-  if (confirmControl?.value === '') {
+  if (!confirmControl?.value) {
     message = "Confirm your password";
     setPasswordAndConfirmError({}, {required: true}, message);
     return {invalid: true};

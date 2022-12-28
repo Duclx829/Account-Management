@@ -34,8 +34,8 @@
       <div class="frame__subtitle">Create your Google Account</div>
       <form class="form"
             action="#"
-            (ngSubmit)="onSubmit()"
             novalidate
+            (ngSubmit)="onSubmit()"
       >
         <div class="d-flex">
           <ng-container *ngTemplateOutlet="tmplInput; context: contextFirstName"></ng-container>
@@ -58,20 +58,24 @@
         >
           <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.get("email").errors["message"]}}
         </span>
+        <div class="d-flex border-0">
+          <span>Gender:</span>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextGenderMale"></ng-container>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextGenderFemale"></ng-container>
+        </div>
         <div class="d-flex">
           <ng-container *ngTemplateOutlet="tmplInput; context: contextBirthDate"></ng-container>
-          <fieldset class="d-flex border-0">
-            <ng-container *ngTemplateOutlet="tmplInput; context: contextGenderMale"></ng-container>
-            <ng-container *ngTemplateOutlet="tmplInput; context: contextGenderFemale"></ng-container>
-          </fieldset>
+          <div>
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
+            <span *ngIf="formAcc.controls['phone'].errors"
+                  class="alert"
+            >
+            <i class="fa fa-exclamation-circle"></i>&ensp;
+                {{formAcc.controls['phone'].errors['message']}}
+          </span>
+          </div>
         </div>
-        <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
-        <span *ngIf="formAcc.controls['phone'].errors"
-              class="alert"
-        >
-          <i class="fa fa-exclamation-circle"></i>&ensp;
-          {{formAcc.controls['phone'].errors['message']}}
-        </span>
+
         <ng-container *ngTemplateOutlet="tmplInput; context: contextAddress"></ng-container>
         <span *ngIf="formAcc.controls['address'].errors"
               class="alert"
@@ -124,22 +128,23 @@
     </div>
   </div>
   <ng-template #tmplInput
+               let-inputId="inputId"
                let-controlName="controlName"
                let-labelName="labelName"
                let-maxLength="maxLength"
-               let-inputType="type"
+               let-inputType="inputType"
   >
     <div class="form-group"
          [class.danger]="formAcc.controls[controlName]?.errors">
       <input [formControlName]="controlName"
-             [id]="controlName"
+             [id]="inputId"
              [name]="controlName"
              [type]="inputType"
              [maxLength]="maxLength"
              class="form-control"
              placeholder=" "
       >
-      <label [for]="controlName">{{labelName}}</label>
+      <label [for]="inputId">{{labelName}}</label>
     </div>
   </ng-template>
 </div>
