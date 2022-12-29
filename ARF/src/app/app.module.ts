@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LanguageComponent } from './language/language.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core'
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
@@ -18,8 +22,23 @@ import { LanguageComponent } from './language/language.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTraslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
+  exports: [TranslateModule],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function httpTraslateLoader(http: HttpClient){
+  return new TranslateHttpLoader(http,
+    './assets/locale/',
+    '.json');
+}

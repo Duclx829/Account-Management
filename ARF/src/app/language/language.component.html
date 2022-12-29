@@ -1,15 +1,17 @@
 <div class="language-option"
      (click)="dropDownExpanded =!dropDownExpanded"
 >
-  <a class="text_underline">Ngôn ngữ: </a>
+  <a class="text_underline">{{ 'Language' | translate}}: </a>
   <div class="drop-down">
-    <a>English</a>
+    <a>{{currentLanguage | translate}}</a>
     <ul [ngClass]="{
           'show': dropDownExpanded
         }"
     >
-      <li>English</li>
-      <li>Vietnamese</li>
+      <li *ngFor="let lang of language | keyvalue"
+          (click)="changeLang(lang.key)">
+        {{ lang.value | translate }}
+      </li>
     </ul>
   </div>
 </div>

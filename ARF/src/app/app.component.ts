@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
+import {DEFAULT_LANGUAGE, LANGUAGE} from "./core/constant/language.constant";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ARF';
+  constructor(private translate: TranslateService) {
+    translate.addLangs(Object.keys(LANGUAGE));
+    translate.setDefaultLang(DEFAULT_LANGUAGE);
+  }
 }

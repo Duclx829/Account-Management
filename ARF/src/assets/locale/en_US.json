@@ -1,3 +1,21 @@
 {
-
+  "Create your Google Account":  "Create your Google Account",
+  "One account. All of Google working for you" : "One account. All of Google working for you",
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Email": "Email",
+  "Gender": "Gender",
+  "Male": "Male",
+  "Female": "Female",
+  "Birth Date":  "Birth Date",
+  "Phone": "Phone",
+  "Address": "Address",
+  "Password": "Password",
+  "Confirm": "Confirm",
+  "Show password": "Show password",
+  "Sign in instead" : "Sign in instead",
+  "Submit": "Submit",
+  "Language": "Language",
+  "English": "English",
+  "Vietnamese": "Vietnamese"
 }

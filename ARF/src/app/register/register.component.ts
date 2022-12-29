@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {
   validateName,
   passwordValidate,
@@ -8,15 +8,15 @@ import {
   validatePhoneNumber
 } from "./validator/register.validator";
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
   }
   showPassword = false;

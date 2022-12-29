@@ -22,11 +22,11 @@
   font-family: sans-serif;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding: 40px;
 
   &__left {
     grid-column-start: 1;
     grid-column-end: 2;
-    padding: 40px 0 40px 40px;
   }
 
   &__right {
@@ -40,9 +40,9 @@
 
   &__img {
     width: 60%;
-    margin: 0 auto;
-
+    margin-left: 40px;
     span {
+      font-size: .82em;
       display: inline-block;
       text-align: center;
       font-weight: 100;

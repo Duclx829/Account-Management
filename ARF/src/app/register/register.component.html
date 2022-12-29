@@ -29,7 +29,7 @@
           </g>
         </svg>
       </div>
-      <div class="frame__subtitle">Create your Google Account</div>
+      <div class="frame__subtitle">{{ 'Create your Google Account' | translate}}</div>
       <form [formGroup]="formAcc"
             class="form"
             action="#"
@@ -58,7 +58,7 @@
           <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.get("email").errors["message"]}}
         </span>
         <div class="d-flex form-gender">
-          <label>Gender:</label>
+          <label>{{ 'Gender' | translate}}:</label>
           <div class="d-flex align-items-center gap-0">
             <input formControlName="gender"
                    [checked]="formAcc.controls['gender'].value=='male'"
@@ -68,7 +68,7 @@
                    name="gender"
                    value="male"
             >
-            <label for="male">Male</label>
+            <label for="male">{{ 'Male' |translate }}</label>
           </div>
           <div class="d-flex gap-0">
             <input formControlName="gender"
@@ -79,7 +79,7 @@
                    name="gender"
                    value="female"
             >
-            <label for="female">Female</label>
+            <label for="female">{{ 'Female' | translate }}</label>
           </div>
         </div>
         <div class="d-flex justify-content-between">
@@ -116,19 +116,19 @@
                    type="checkbox"
                    (change)="togglePassword()"
             >
-            Show password
+            {{ 'Show password' | translate }}
           </label>
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <a href="#"
              class="form__link"
           >
-            Sign in instead
+            {{ 'Sign in instead' | translate}}
           </a>
           <button type="submit"
                   class="form__btn"
           >
-            Submit
+            {{ 'Submit' | translate}}
           </button>
         </div>
         <ng-template #tmplInput
@@ -149,19 +149,19 @@
                    class="form-control"
                    placeholder=" "
             >
-            <label [for]="inputId">{{labelName}}</label>
+            <label [for]="inputId">{{labelName | translate}}</label>
           </div>
         </ng-template>
       </form>
-      <app-language></app-language>
     </div>
     <div class="frame__right">
       <div class="frame__img">
         <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
              alt=""
         >
-        <span>One account. All of Google working for you.</span>
+        <span>{{ 'One account. All of Google working for you' | translate }}.</span>
       </div>
     </div>
+    <app-language></app-language>
   </div>
 </div>
