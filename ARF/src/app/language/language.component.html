@@ -1,0 +1,15 @@
+<div class="language-option"
+     (click)="dropDownExpanded =!dropDownExpanded"
+>
+  <a class="text_underline">Ngôn ngữ: </a>
+  <div class="drop-down">
+    <a>English</a>
+    <ul [ngClass]="{
+          'show': dropDownExpanded
+        }"
+    >
+      <li>English</li>
+      <li>Vietnamese</li>
+    </ul>
+  </div>
+</div>

@@ -8,6 +8,7 @@ let addressControl: AbstractControl | null;
 let passwordControl: AbstractControl | null;
 let confirmControl: AbstractControl | null;
 const EMAIL_REG = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const PHONE_REG = /((09|03|07|08|05)+([0-9]{8})\b)/g;
 const ADDRESS_REG = /^[a-zA-Z0-9\s,'-]*$/;
 const UPPER_CASE_REG = /[A-Z]/;
 const LOWER_CASE_REG = /[a-z]/;
@@ -48,7 +49,8 @@ export function validateName(formGroup: AbstractControl) {
 function setNameError(firstNameErr: object | null, lastNameErr: object | null, msg = "") {
   if (firstNameErr) {
     Object.assign(firstNameErr, {message: msg});
-  } else if (lastNameErr) {
+  }
+  if (lastNameErr) {
     Object.assign(lastNameErr, {message: msg});
   }
   firstNameControl.setErrors(firstNameErr);
@@ -80,13 +82,12 @@ export function validateEmail(formGroup: AbstractControl) {
 export function validatePhoneNumber(formGroup: AbstractControl) {
   if (formGroup.pristine) return null;
   phoneControl = formGroup.get("phone");
-  const phoneReg = /((09|03|07|08|05)+([0-9]{8})\b)/g;
   if (!phoneControl.touched) return null;
   if (!phoneControl.value) {
     phoneControl.setErrors({required: true, message: 'Enter phone number'});
     return {invalid: true}
   }
-  if (!phoneReg.test(phoneControl.value)) {
+  if (!PHONE_REG.test(phoneControl.value)) {
     phoneControl.setErrors({invalid: true, message: 'Invalid phone number format'});
     return {invalid: true}
   }
@@ -97,7 +98,6 @@ export function validatePhoneNumber(formGroup: AbstractControl) {
 export function validateAddress(formGroup: AbstractControl) {
   if (formGroup.pristine) return null;
   addressControl = formGroup.get("address");
-  // includeExtraSpace(addressControl.value)
   if (!addressControl.touched) return null;
   if (!addressControl.value) {
     addressControl.setErrors({
@@ -165,6 +165,7 @@ export function passwordValidate(formGroup: AbstractControl) {
     setPasswordAndConfirmError({notMatch: true}, {notMatch: true}, message);
     return {invalid: true};
   }
+
   setPasswordAndConfirmError(null, null);
   return null;
 }
@@ -176,8 +177,3 @@ function setPasswordAndConfirmError(passwordError: object | null, confirmError: 
   passwordControl.setErrors(passwordError);
   confirmControl.setErrors(confirmError);
 }
-
-// function includeExtraSpace(value: string) {
-//   let splitStr = value.split('  ');
-//   return (splitStr.length > 1)
-// }

@@ -63,7 +63,7 @@
 
 .form {
   margin: 30px 0;
-
+  box-sizing: border-box;
   &__link {
     text-decoration: none;
     font-weight: 600;
@@ -82,6 +82,18 @@
     cursor: pointer;
     font-weight: 500;
   }
+  label{
+    font-weight: lighter;
+    color: var(--clr--gray);
+    font-size: 0.85em;
+  }
+
+  label:first-of-type{
+    margin-right: 10px;
+  }
+  .form-gender{
+    margin: 20px 0 5px 0;
+  }
 }
 
 .form-group {
@@ -94,7 +106,7 @@
   background: #fff;
   font-size: .85rem;
   height: fit-content;
-  flex-basis: fit-content;
+  flex: 1 1 0;
   transition: var(--transition--duration);
 
   .form-control {
@@ -106,7 +118,13 @@
     border-radius: inherit;
     font-size: inherit;
   }
-
+  .form-control[type='date']{
+    opacity: 0;
+    transition: .2s;
+  }
+  .form-control[type='date']:focus{
+    opacity: 1;
+  }
   label {
     position: absolute;
     left: 8px;
@@ -120,7 +138,7 @@
   }
 
   .form-control:focus + label,
-  .form-control:not(:placeholder-shown) + label {
+  .form-control:not(:placeholder-shown):not([type='date']) + label{
     top: 0;
     font-size: .7em;
     background: inherit;
@@ -150,26 +168,6 @@
   }
 }
 
-.form-group:has(.form-control[type='radio']) {
-  border: 0;
-  box-shadow: none;
-  display: flex;
-  align-items: center;
-  .form-control {
-    width: auto !important;
-    padding: 0;
-    border-radius: 0;
-    margin-top: 0;
-  }
-  label{
-    position: relative;
-    transform: none;
-    font-size: 1em;
-    cursor: pointer;
-    left: 0;
-    padding: 0 5px;
-  }
-}
 
 .text-dark {
   color: var(--clr--dark);
@@ -182,7 +180,8 @@
 
 .d-flex {
   display: flex;
-  gap: 15px;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .justify-content-between {
@@ -198,8 +197,16 @@
   font-size: 0.7em;
 }
 
-.border-0{
+.border-0 {
   border: none;
 }
 
+.gap-0{
+  gap: 0;
+}
+
+.my-0{
+  margin-top: 0;
+  margin-bottom: 0;
+}
 

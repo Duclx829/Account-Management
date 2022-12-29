@@ -1,6 +1,4 @@
-<div [formGroup]="formAcc"
-     class="container"
->
+<div class="container">
   <div class="frame">
     <div class="frame__left">
       <div class="frame__title">
@@ -32,12 +30,13 @@
         </svg>
       </div>
       <div class="frame__subtitle">Create your Google Account</div>
-      <form class="form"
+      <form [formGroup]="formAcc"
+            class="form"
             action="#"
             novalidate
             (ngSubmit)="onSubmit()"
       >
-        <div class="d-flex">
+        <div class="d-flex justify-content-between">
           <ng-container *ngTemplateOutlet="tmplInput; context: contextFirstName"></ng-container>
           <ng-container *ngTemplateOutlet="tmplInput; context: contextLastName"></ng-container>
         </div>
@@ -58,31 +57,47 @@
         >
           <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.get("email").errors["message"]}}
         </span>
-        <div class="d-flex border-0">
-          <span>Gender:</span>
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextGenderMale"></ng-container>
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextGenderFemale"></ng-container>
-        </div>
-        <div class="d-flex">
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextBirthDate"></ng-container>
-          <div>
-            <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
-            <span *ngIf="formAcc.controls['phone'].errors"
-                  class="alert"
+        <div class="d-flex form-gender">
+          <label>Gender:</label>
+          <div class="d-flex align-items-center gap-0">
+            <input formControlName="gender"
+                   [checked]="formAcc.controls['gender'].value=='male'"
+                   id="male"
+                   class="my-0"
+                   type="radio"
+                   name="gender"
+                   value="male"
             >
-            <i class="fa fa-exclamation-circle"></i>&ensp;
-                {{formAcc.controls['phone'].errors['message']}}
-          </span>
+            <label for="male">Male</label>
+          </div>
+          <div class="d-flex gap-0">
+            <input formControlName="gender"
+                   [checked]="formAcc.controls['gender'].value=='female'"
+                   id="female"
+                   class="my-0"
+                   type="radio"
+                   name="gender"
+                   value="female"
+            >
+            <label for="female">Female</label>
           </div>
         </div>
-
+        <div class="d-flex justify-content-between">
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextBirthDate"></ng-container>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
+        </div>
+        <span *ngIf="formAcc.controls['phone'].errors"
+              class="alert"
+        >
+            <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.controls['phone'].errors['message']}}
+          </span>
         <ng-container *ngTemplateOutlet="tmplInput; context: contextAddress"></ng-container>
         <span *ngIf="formAcc.controls['address'].errors"
               class="alert"
         >
           <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.controls['address'].errors['message']}}
         </span>
-        <div class="d-flex">
+        <div class="d-flex justify-content-between">
           <ng-container *ngTemplateOutlet="tmplInput; context: contextPassword"></ng-container>
           <ng-container *ngTemplateOutlet="tmplInput; context: contextConfirm"></ng-container>
         </div>
@@ -116,7 +131,29 @@
             Submit
           </button>
         </div>
+        <ng-template #tmplInput
+                     let-inputId="inputId"
+                     let-controlName="controlName"
+                     let-labelName="labelName"
+                     let-maxLength="maxLength"
+                     let-inputType="inputType"
+                     let-onFocus="onFocus"
+        >
+          <div class="form-group"
+               [class.danger]="formAcc.controls[controlName].errors">
+            <input [formControlName]="controlName"
+                   [id]="inputId"
+                   [name]="controlName"
+                   [type]="inputType"
+                   [maxLength]="maxLength"
+                   class="form-control"
+                   placeholder=" "
+            >
+            <label [for]="inputId">{{labelName}}</label>
+          </div>
+        </ng-template>
       </form>
+      <app-language></app-language>
     </div>
     <div class="frame__right">
       <div class="frame__img">
@@ -127,24 +164,4 @@
       </div>
     </div>
   </div>
-  <ng-template #tmplInput
-               let-inputId="inputId"
-               let-controlName="controlName"
-               let-labelName="labelName"
-               let-maxLength="maxLength"
-               let-inputType="inputType"
-  >
-    <div class="form-group"
-         [class.danger]="formAcc.controls[controlName].errors">
-      <input [formControlName]="controlName"
-             [id]="inputId"
-             [name]="controlName"
-             [type]="inputType"
-             [maxLength]="maxLength"
-             class="form-control"
-             placeholder=" "
-      >
-      <label [for]="inputId">{{labelName}}</label>
-    </div>
-  </ng-template>
 </div>

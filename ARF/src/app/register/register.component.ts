@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {
   validateName,
   passwordValidate,
@@ -19,7 +19,6 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
   ) {
   }
-
   showPassword = false;
   formAcc: FormGroup;
   formGender: FormGroup;
@@ -49,18 +48,6 @@ export class RegisterComponent implements OnInit {
     controlName: 'birthdate',
     labelName: 'Birth Date',
     inputType: 'date'
-  }
-  contextGenderMale = {
-    inputId: 'male',
-    controlName: 'gender',
-    labelName: 'Male',
-    inputType: 'radio'
-  }
-  contextGenderFemale = {
-    inputId: 'female',
-    controlName: 'gender',
-    labelName: 'Female',
-    inputType: 'radio'
   }
   contextPhone = {
     inputId: 'phone',
@@ -105,7 +92,7 @@ export class RegisterComponent implements OnInit {
         lastName: [],
         email: [],
         birthdate: [],
-        gender: [],
+        gender: ['male'],
         phone: [],
         address: [],
         password: [],
@@ -128,9 +115,9 @@ export class RegisterComponent implements OnInit {
     this.formAcc.markAllAsTouched();
     this.formAcc.updateValueAndValidity();
     setTimeout(() => {
-        if (this.formAcc.valid) {
-          alert('Submited')
-        }
+        // if (this.formAcc.valid) {
+          console.log(this.formAcc.controls['gender'].value)
+        // }
       }
       , 0
     )
