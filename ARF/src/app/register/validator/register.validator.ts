@@ -9,7 +9,7 @@ let passwordControl: AbstractControl | null;
 let confirmControl: AbstractControl | null;
 
 const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const PHONE_PATTERN = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+const PHONE_PATTERN = /((09|03|07|08|05)+([0-9]{8})\b)/;
 const ADDRESS_PATTERN = /^[a-zA-Z0-9\s,'-]*$/;
 const UPPER_CASE_PATTERN = /[A-Z]/;
 const LOWER_CASE_PATTERN = /[a-z]/;
@@ -118,7 +118,7 @@ export function validateName(formGroup: AbstractControl) {
   }
 
   if (!firstNameValue && firstNameControl.touched) {
-   firstNameControl.setErrors(FIRSTNAME_REQUIRED_ERR);
+    firstNameControl.setErrors(FIRSTNAME_REQUIRED_ERR);
     return FORM_INVALID_ERR;
   }
 
@@ -129,7 +129,6 @@ export function validateName(formGroup: AbstractControl) {
 
   return null;
 }
-
 
 export function validateEmail(formGroup: AbstractControl) {
   if (formGroup.pristine) return null;

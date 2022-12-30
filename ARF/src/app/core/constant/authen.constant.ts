@@ -1,0 +1,9 @@
+export const LOCALE = "locale";
+export const LOGIN_STATUS = "loginStatus";
+export const SUCCESS = "Success";
+export const SUCCESS_LOWERCASE = "success";
+export const FAIL = "Failed";
+export const ERROR_LOWERCASE = "error";
+export const WARNING_LOWERCASE = "warning";
+export const WARNING = "Warning";
+export const REGISTERED_SUCCESS = "Registered successfully";

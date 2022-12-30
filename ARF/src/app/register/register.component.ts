@@ -7,6 +7,9 @@ import {
   validateEmail,
   validatePhoneNumber
 } from "./validator/register.validator";
+import {LOGIN_STATUS, REGISTERED_SUCCESS, SUCCESS} from "../core/constant/authen.constant";
+import {Router} from "@angular/router";
+import {IAlert} from "../core/model/alert.model";
 
 
 @Component({
@@ -15,13 +18,10 @@ import {
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  constructor(
-    private fb: FormBuilder
-  ) {
-  }
+
+  alert: IAlert;
   showPassword = false;
   formAcc: FormGroup;
-  formGender: FormGroup;
   contextFirstName = {
     inputId: 'firstName',
     controlName: 'firstName',
@@ -78,15 +78,18 @@ export class RegisterComponent implements OnInit {
     inputType: 'password'
   };
 
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {
+  }
+
   ngOnInit(): void {
     this.initForm();
   }
 
   initForm() {
-    this.formGender = this.fb.group({
-      genderMale: [''],
-      genderFemale: ['']
-    });
+
     this.formAcc = this.fb.group({
         firstName: [],
         lastName: [],
@@ -115,26 +118,66 @@ export class RegisterComponent implements OnInit {
     this.formAcc.markAllAsTouched();
     this.formAcc.updateValueAndValidity();
     setTimeout(() => {
-        // if (this.formAcc.valid) {
-          console.log(this.formAcc.controls['gender'].value)
-        // }
+        if (this.formAcc.valid) {
+          sessionStorage.setItem(LOGIN_STATUS, this.formAcc.value);
+          this.setAlertMessage("success", SUCCESS, REGISTERED_SUCCESS);
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 3000);
+        }
       }
       , 0
     )
   }
+
+  getNameAlert() {
+    const firstNameControlErr = this.formAcc.get("firstName").errors;
+    const lastNameControlErr = this.formAcc.get('lastName').errors;
+    if (firstNameControlErr) return firstNameControlErr;
+
+    if (lastNameControlErr) return lastNameControlErr;
+
+    return null;
+  }
+
+  getPasswordAlert() {
+    const passwordControlErr = this.formAcc.get("password").errors;
+    const confirmControlErr = this.formAcc.controls['confirm'].errors;
+    if (passwordControlErr) return passwordControlErr;
+
+    if (confirmControlErr) return confirmControlErr;
+
+    return null;
+  }
+
+  setAlertMessage(alertType: "success" | "error" | "warning" | null, title = "", message = "") {
+    if (alertType) {
+      this.alert = {
+        alertType: alertType,
+        title: title,
+        message: message
+      }
+    } else {
+      this.alert = null;
+    }
+  }
+
 
   initFormTest = () =>
     this.formAcc = this.fb.group({
         firstName: ['abc'],
         lastName: ['def'],
         email: ['abc@gmail.com'],
+        birthdate: [],
+        gender: ['male'],
         phone: ['0923456789'],
         address: ['abc abc abc'],
         password: ['a1234567'],
-        confirm: [''],
+        confirm: ['a1234567'],
       },
       {
         validators: [validateName, validateEmail, validatePhoneNumber, validateAddress, passwordValidate],
-        updateOn: "change"
+        updateOn: "blur"
       })
+
 }

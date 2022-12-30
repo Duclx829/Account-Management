@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DEFAULT_LANGUAGE, LANGUAGE} from "../core/constant/language.constant";
 import {TranslateService} from "@ngx-translate/core";
+import {LOCALE} from "../core/constant/authen.constant";
 
 @Component({
   selector: 'app-language',
@@ -9,19 +10,27 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class LanguageComponent implements OnInit {
   language = LANGUAGE;
-  currentLanguage = this.language[DEFAULT_LANGUAGE];
-
-  dropDownExpanded: boolean = false;
+  isDropdownExpanded = false;
+  currentLanguage;
 
   constructor(private translate: TranslateService) {
   }
 
   ngOnInit(): void {
+    this.currentLanguage = this.getCurrentLang();
+  }
 
+  getCurrentLang(){
+    if(localStorage.getItem(LOCALE)){
+      return this.language[localStorage.getItem(LOCALE)];
+    }
+
+    return this.language[DEFAULT_LANGUAGE];
   }
 
   changeLang(key: string) {
-    this.currentLanguage = this.language[key];
+    localStorage.setItem(LOCALE, key);
     this.translate.use(key);
+    this.currentLanguage = this.language[key];
   }
 }

@@ -41,6 +41,7 @@
   &__img {
     width: 60%;
     margin-left: 40px;
+
     span {
       font-size: .82em;
       display: inline-block;
@@ -64,6 +65,7 @@
 .form {
   margin: 30px 0;
   box-sizing: border-box;
+
   &__link {
     text-decoration: none;
     font-weight: 600;
@@ -82,16 +84,18 @@
     cursor: pointer;
     font-weight: 500;
   }
-  label{
+
+  label {
     font-weight: lighter;
     color: var(--clr--gray);
     font-size: 0.85em;
   }
 
-  label:first-of-type{
+  label:first-of-type {
     margin-right: 10px;
   }
-  .form-gender{
+
+  .form-gender {
     margin: 20px 0 5px 0;
   }
 }
@@ -118,13 +122,16 @@
     border-radius: inherit;
     font-size: inherit;
   }
-  .form-control[type='date']{
+
+  .form-control[type='date'] {
     opacity: 0;
     transition: .2s;
   }
-  .form-control[type='date']:focus{
+
+  .form-control[type='date']:focus {
     opacity: 1;
   }
+
   label {
     position: absolute;
     left: 8px;
@@ -138,7 +145,7 @@
   }
 
   .form-control:focus + label,
-  .form-control:not(:placeholder-shown):not([type='date']) + label{
+  .form-control:not(:placeholder-shown):not([type='date']) + label {
     top: 0;
     font-size: .7em;
     background: inherit;
@@ -201,11 +208,11 @@
   border: none;
 }
 
-.gap-0{
+.gap-0 {
   gap: 0;
 }
 
-.my-0{
+.my-0 {
   margin-top: 0;
   margin-bottom: 0;
 }

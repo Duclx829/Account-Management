@@ -2,6 +2,7 @@
   <div class="frame">
     <div class="frame__left">
       <div class="frame__title">
+        <!--Google icon-->
         <svg viewBox="0 0 75 24" width="75" height="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
              class="l5Lhkf">
           <g id="qaEJec">
@@ -30,33 +31,30 @@
         </svg>
       </div>
       <div class="frame__subtitle">{{ 'Create your Google Account' | translate}}</div>
+
       <form [formGroup]="formAcc"
             class="form"
             action="#"
             novalidate
             (ngSubmit)="onSubmit()"
       >
-        <div class="d-flex justify-content-between">
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextFirstName"></ng-container>
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextLastName"></ng-container>
+        <!--first name and last name-->
+        <div>
+          <div class="d-flex justify-content-between">
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextFirstName"></ng-container>
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextLastName"></ng-container>
+          </div>
+          <ng-container *ngTemplateOutlet="tmplAlert; context: {controlErr: getNameAlert()}"></ng-container>
         </div>
-        <span
-          *ngIf="formAcc.get('firstName').errors || formAcc.get('lastName').errors"
-          class="alert"
-        >
-          <i class="fa fa-exclamation-circle"></i>&ensp;
-          {{
-          formAcc.controls['firstName'].errors
-            ? formAcc.controls['firstName'].errors['message']
-            : formAcc.controls['lastName'].errors['message']
-          }}
-        </span>
-        <ng-container *ngTemplateOutlet="tmplInput; context: contextEmail"></ng-container>
-        <span *ngIf="formAcc.controls['email'].errors"
-              class="alert"
-        >
-          <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.get("email").errors["message"]}}
-        </span>
+        <!--email-->
+        <div>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextEmail"></ng-container>
+          <ng-container [ngTemplateOutlet]="tmplAlert"
+                        [ngTemplateOutletContext]="{ controlErr: formAcc.get('email').errors }"
+          ></ng-container>
+        </div>
+
+        <!--gender-->
         <div class="d-flex form-gender">
           <label>{{ 'Gender' | translate}}:</label>
           <div class="d-flex align-items-center gap-0">
@@ -82,31 +80,36 @@
             <label for="female">{{ 'Female' | translate }}</label>
           </div>
         </div>
-        <div class="d-flex justify-content-between">
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextBirthDate"></ng-container>
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
+
+        <!--birth date and phone-->
+        <div>
+          <div class="d-flex justify-content-between">
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextBirthDate"></ng-container>
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
+          </div>
+          <ng-container [ngTemplateOutlet]="tmplAlert"
+                        [ngTemplateOutletContext]="{ controlErr: formAcc.get('phone').errors }"
+          ></ng-container>
         </div>
-        <span *ngIf="formAcc.controls['phone'].errors"
-              class="alert"
-        >
-            <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.controls['phone'].errors['message']}}
-          </span>
-        <ng-container *ngTemplateOutlet="tmplInput; context: contextAddress"></ng-container>
-        <span *ngIf="formAcc.controls['address'].errors"
-              class="alert"
-        >
-          <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.controls['address'].errors['message']}}
-        </span>
-        <div class="d-flex justify-content-between">
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextPassword"></ng-container>
-          <ng-container *ngTemplateOutlet="tmplInput; context: contextConfirm"></ng-container>
+
+        <!--address-->
+        <div>
+          <ng-container *ngTemplateOutlet="tmplInput; context: contextAddress"></ng-container>
+          <ng-container [ngTemplateOutlet]="tmplAlert"
+                        [ngTemplateOutletContext]="{ controlErr: formAcc.get('address').errors}"
+          ></ng-container>
         </div>
-        <span
-          *ngIf="(formAcc.get('password').errors)"
-          class="alert"
-        >
-          <i class="fa fa-exclamation-circle"></i>&ensp;{{formAcc.get('password').errors['message']}}
-        </span>
+
+        <!--password and confirm-->
+        <div>
+          <div class="d-flex justify-content-between">
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextPassword"></ng-container>
+            <ng-container *ngTemplateOutlet="tmplInput; context: contextConfirm"></ng-container>
+          </div>
+          <ng-container *ngTemplateOutlet="tmplAlert; context: {controlErr: getPasswordAlert()}"></ng-container>
+        </div>
+
+        <!--show password button-->
         <div class="d-flex">
           <label for="passwordToggle"
                  class="grid__full text-dark"
@@ -119,6 +122,8 @@
             {{ 'Show password' | translate }}
           </label>
         </div>
+
+        <!--sign in and submit button-->
         <div class="d-flex justify-content-between align-items-center">
           <a href="#"
              class="form__link"
@@ -131,6 +136,8 @@
             {{ 'Submit' | translate}}
           </button>
         </div>
+
+        <!--input field template-->
         <ng-template #tmplInput
                      let-inputId="inputId"
                      let-controlName="controlName"
@@ -152,6 +159,15 @@
             <label [for]="inputId">{{labelName | translate}}</label>
           </div>
         </ng-template>
+
+        <!--alert message template-->
+        <ng-template #tmplAlert
+                     let-controlErr="controlErr"
+        >
+           <span *ngIf="controlErr" class="alert">
+            <i class="fa fa-exclamation-circle"></i>&ensp;{{ controlErr['message'] | translate }}
+          </span>
+        </ng-template>
       </form>
     </div>
     <div class="frame__right">
@@ -164,4 +180,6 @@
     </div>
     <app-language></app-language>
   </div>
+
+  <app-alert-box [setAlert]="alert"></app-alert-box>
 </div>

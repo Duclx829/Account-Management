@@ -1,11 +1,11 @@
 <div class="language-option"
-     (click)="dropDownExpanded =!dropDownExpanded"
+     (click)="isDropdownExpanded =!isDropdownExpanded"
 >
   <a class="text_underline">{{ 'Language' | translate}}: </a>
   <div class="drop-down">
     <a>{{currentLanguage | translate}}</a>
     <ul [ngClass]="{
-          'show': dropDownExpanded
+          'show': isDropdownExpanded
         }"
     >
       <li *ngFor="let lang of language | keyvalue"
