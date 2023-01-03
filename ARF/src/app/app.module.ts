@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LanguageComponent } from './language/language.component';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core'
+import {TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core'
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './manage/home/home.component';
@@ -14,7 +14,9 @@ import { NotFoundComponent } from './404/not-found/not-found.component';
 import { IonicModule } from '@ionic/angular';
 import { AccountInformationComponent } from './manage/account-information/account-information.component';
 import { HeaderComponent } from './manage/header/header.component';
-import { AlertBoxComponent } from './manage/alert-box/alert-box.component';
+import { NotificationComponent } from './manage/notification/notification.component';
+import {DatePipe} from "@angular/common";
+import {ApiService} from "./core/services/api.service";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,7 @@ import { AlertBoxComponent } from './manage/alert-box/alert-box.component';
     NotFoundComponent,
     AccountInformationComponent,
     HeaderComponent,
-    AlertBoxComponent
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,7 @@ import { AlertBoxComponent } from './manage/alert-box/alert-box.component';
     IonicModule.forRoot()
   ],
   exports: [TranslateModule],
-  providers: [],
+  providers: [DatePipe, ApiService],
   bootstrap: [AppComponent]
 })
 

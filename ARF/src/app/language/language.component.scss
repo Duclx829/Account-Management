@@ -17,10 +17,9 @@
 
   .drop-down {
     position: relative;
-
     ul {
       position: absolute;
-      top: 50%;
+      top: 120%;
       left: -10px;
       padding: 10px 0;
       border-radius: 5px;
@@ -41,7 +40,7 @@
     li {
       list-style-type: none;
       font-size: 0.85rem;
-      padding: 5px 20px 5px 10px;
+      padding: 5px 40px 5px 10px;
       cursor: pointer;
       transition: .2s;
       white-space: nowrap;

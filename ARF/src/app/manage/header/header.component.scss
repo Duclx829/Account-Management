@@ -6,6 +6,7 @@
   box-shadow: 0 4px 8px 0 lightgray;
   padding: 0 50px;
   font-family: sans-serif;
+
   &-brand {
     color: #000;
     font-weight: 600;
@@ -31,6 +32,7 @@
       border-radius: 5px;
       padding: 7px 15px;
       opacity: .7;
+      color: #551A8B;
       -webkit-transition: .15s;
       -moz-transition: .15s;
       -ms-transition: .15s;
@@ -39,7 +41,11 @@
       &:hover{
         background: #f6f6f6;
         opacity: 1;
+        color: #000;
       }
+    }
+    .active{
+      color: #000;
     }
   }
 }

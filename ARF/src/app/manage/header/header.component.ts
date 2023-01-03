@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {LOGIN_STATUS} from "../../core/constant/authen.constant";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) {
+
+  }
 
   ngOnInit(): void {
+  }
+
+  signOut(){
+    localStorage.removeItem(LOGIN_STATUS);
+    this.router.navigate(['/register']);
   }
 
 }

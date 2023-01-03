@@ -1,7 +1,7 @@
 <div class="container">
   <div class="frame">
-    <div class="frame__left">
-      <div class="frame__title">
+    <div class="frame-left">
+      <div class="frame-title">
         <!--Google icon-->
         <svg viewBox="0 0 75 24" width="75" height="24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
              class="l5Lhkf">
@@ -30,7 +30,7 @@
           </g>
         </svg>
       </div>
-      <div class="frame__subtitle">{{ 'Create your Google Account' | translate}}</div>
+      <div class="frame-subtitle">{{ 'Create your Google Account' | translate}}</div>
 
       <form [formGroup]="formAcc"
             class="form"
@@ -59,23 +59,23 @@
           <label>{{ 'Gender' | translate}}:</label>
           <div class="d-flex align-items-center gap-0">
             <input formControlName="gender"
-                   [checked]="formAcc.get('gender').value === 'male'"
+                   [checked]="formAcc.get('gender').value === 'Male'"
                    id="male"
                    class="my-0"
                    type="radio"
                    name="gender"
-                   value="male"
+                   value="Male"
             >
             <label for="male">{{ 'Male' |translate }}</label>
           </div>
           <div class="d-flex gap-0">
             <input formControlName="gender"
-                   [checked]="formAcc.get('gender').value === 'female'"
+                   [checked]="formAcc.get('gender').value === 'Female'"
                    id="female"
                    class="my-0"
                    type="radio"
                    name="gender"
-                   value="female"
+                   value="Female"
             >
             <label for="female">{{ 'Female' | translate }}</label>
           </div>
@@ -84,12 +84,20 @@
         <!--birth date and phone-->
         <div>
           <div class="d-flex justify-content-between">
-            <ng-container *ngTemplateOutlet="tmplInput; context: contextBirthDate"></ng-container>
-            <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
+            <div style="flex: 1 1 0">
+              <ng-container *ngTemplateOutlet="tmplInput; context: contextBirthDate"></ng-container>
+              <ng-container [ngTemplateOutlet]="tmplAlert"
+                            [ngTemplateOutletContext]="{ controlErr: formAcc.get('birthdate').errors }"
+              ></ng-container>
+            </div>
+            <div style="flex: 1 1 0">
+              <ng-container *ngTemplateOutlet="tmplInput; context: contextPhone"></ng-container>
+              <ng-container [ngTemplateOutlet]="tmplAlert"
+                            [ngTemplateOutletContext]="{ controlErr: formAcc.get('phone').errors }"
+              ></ng-container>
+            </div>
           </div>
-          <ng-container [ngTemplateOutlet]="tmplAlert"
-                        [ngTemplateOutletContext]="{ controlErr: formAcc.get('phone').errors }"
-          ></ng-container>
+
         </div>
 
         <!--address-->
@@ -112,7 +120,7 @@
         <!--show password button-->
         <div class="d-flex">
           <label for="passwordToggle"
-                 class="grid__full text-dark"
+                 class="grid-full text-dark"
           >
             <input [checked]="showPassword"
                    id="passwordToggle"
@@ -126,12 +134,12 @@
         <!--sign in and submit button-->
         <div class="d-flex justify-content-between align-items-center">
           <a href="#"
-             class="form__link"
+             class="form-link"
           >
             {{ 'Sign in instead' | translate}}
           </a>
           <button type="submit"
-                  class="form__btn"
+                  class="form-btn"
           >
             {{ 'Submit' | translate}}
           </button>
@@ -144,7 +152,7 @@
                      let-labelName="labelName"
                      let-maxLength="maxLength"
                      let-inputType="inputType"
-                     let-onFocus="onFocus"
+                     let-maxValue="maxValue"
         >
           <div class="form-group"
                [class.danger]="formAcc.controls[controlName].errors">
@@ -153,6 +161,7 @@
                    [name]="controlName"
                    [type]="inputType"
                    [maxLength]="maxLength"
+                   [max]="maxValue"
                    class="form-control"
                    placeholder=" "
             >
@@ -170,8 +179,8 @@
         </ng-template>
       </form>
     </div>
-    <div class="frame__right">
-      <div class="frame__img">
+    <div class="frame-right">
+      <div class="frame-img">
         <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg"
              alt=""
         >
@@ -181,5 +190,5 @@
     <app-language></app-language>
   </div>
 
-  <app-alert-box [setAlert]="alert"></app-alert-box>
+  <app-alert-box [setNotify]="notification"></app-alert-box>
 </div>

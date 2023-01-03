@@ -1,13 +1,5 @@
 import {AbstractControl} from "@angular/forms";
 
-let firstNameControl: AbstractControl | null;
-let lastNameControl: AbstractControl | null;
-let emailControl: AbstractControl | null;
-let phoneControl: AbstractControl | null;
-let addressControl: AbstractControl | null;
-let passwordControl: AbstractControl | null;
-let confirmControl: AbstractControl | null;
-
 const EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PHONE_PATTERN = /((09|03|07|08|05)+([0-9]{8})\b)/;
 const ADDRESS_PATTERN = /^[a-zA-Z0-9\s,'-]*$/;
@@ -36,9 +28,14 @@ const PHONE_REQUIRED_ERR = {
   message: 'Enter phone number'
 };
 
+const BIRTHDATE_REQUIRED_ERR = {
+  required: true,
+  message: "Enter your Date of Birth"
+}
+
 const PHONE_INVALID_ERR = {
   invalid: true,
-  message: 'Invalid phone number format'
+  message: 'Invalid phone number'
 }
 
 const ADDRESS_REQUIRED_ERR = {
@@ -99,8 +96,8 @@ const LASTNAME_REQUIRED_ERR = {
 export function validateName(formGroup: AbstractControl) {
   if (formGroup.pristine) return null;
 
-  firstNameControl = formGroup.get('firstName');
-  lastNameControl = formGroup.get("lastName");
+  const firstNameControl = formGroup.get('firstName');
+  const lastNameControl = formGroup.get("lastName");
   const firstNameValue = firstNameControl.value;
   const lastNameValue = lastNameControl.value;
   firstNameControl.setErrors(null);
@@ -130,74 +127,57 @@ export function validateName(formGroup: AbstractControl) {
   return null;
 }
 
-export function validateEmail(formGroup: AbstractControl) {
-  if (formGroup.pristine) return null;
+export function validateEmail(control: AbstractControl) {
 
-  emailControl = formGroup.get("email");
-  const emailControlValue = emailControl.value;
+  if (control.pristine) return null;
 
-  if (!emailControl.touched) return null;
+  const controlValue = control.value;
 
-  if (!emailControlValue) {
-    emailControl.setErrors(EMAIL_REQUIRED_ERR);
-    return FORM_INVALID_ERR;
-  }
+  if (!controlValue) return EMAIL_REQUIRED_ERR;
 
-  if (!EMAIL_PATTERN.test(emailControlValue)) {
-    emailControl.setErrors(EMAIL_INVALID_ERR);
-    return FORM_INVALID_ERR;
-  }
+  if (!EMAIL_PATTERN.test(controlValue)) return EMAIL_INVALID_ERR;
 
-  emailControl.setErrors(null);
   return null;
 }
 
-export function validatePhoneNumber(formGroup: AbstractControl) {
-  if (formGroup.pristine) return null;
+export function validateBirthDate(control: AbstractControl) {
+  if (control.pristine) return null;
 
-  phoneControl = formGroup.get("phone");
-  const phoneControlValue = phoneControl.value;
+  const controlValue = control.value;
 
-  if (!phoneControl.touched) return null;
+  if(!controlValue) return BIRTHDATE_REQUIRED_ERR;
 
-  if (!phoneControlValue) {
-    phoneControl.setErrors(PHONE_REQUIRED_ERR);
-    return FORM_INVALID_ERR;
-  }
-
-  if (!PHONE_PATTERN.test(phoneControlValue)) {
-    phoneControl.setErrors(PHONE_INVALID_ERR);
-    return FORM_INVALID_ERR;
-  }
-
-  phoneControl.setErrors(null);
   return null;
 }
 
-export function validateAddress(formGroup: AbstractControl) {
-  if (formGroup.pristine) return null;
-  addressControl = formGroup.get("address");
-  const addressControlValue = addressControl.value
-  if (!addressControl.touched) return null;
+export function validatePhoneNumber(control: AbstractControl) {
+  if (control.pristine) return null;
 
-  if (!addressControlValue) {
-    addressControl.setErrors(ADDRESS_REQUIRED_ERR);
-    return FORM_INVALID_ERR;
-  }
+  const controlValue = control.value;
 
-  if (!ADDRESS_PATTERN.test(addressControlValue)) {
-    addressControl.setErrors(ADDRESS_SPECIAL_ERR);
-    return FORM_INVALID_ERR;
-  }
+  if (!controlValue) return PHONE_REQUIRED_ERR;
 
-  addressControl.setErrors(null);
+  if (!PHONE_PATTERN.test(controlValue)) return PHONE_INVALID_ERR;
+
+  return null;
+}
+
+export function validateAddress(control: AbstractControl) {
+  if (control.pristine) return null;
+
+  const controlValue = control.value
+
+  if (!controlValue) return ADDRESS_REQUIRED_ERR;
+
+  if (!ADDRESS_PATTERN.test(controlValue)) return ADDRESS_SPECIAL_ERR;
+
   return null;
 }
 
 export function passwordValidate(formGroup: AbstractControl) {
   if (formGroup.pristine) return null;
-  passwordControl = formGroup.get('password');
-  confirmControl = formGroup.get('confirm');
+  const passwordControl = formGroup.get('password');
+  const confirmControl = formGroup.get('confirm');
   const passwordControlValue = passwordControl.value;
   const confirmControlValue = confirmControl.value;
   let score = 0;

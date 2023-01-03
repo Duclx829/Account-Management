@@ -2,17 +2,35 @@
   <!-- Navbar -->
   <nav class="navbar">
     <!-- Navbar brand -->
-    <a class="navbar-brand" href="#">ARF</a>
+    <a [routerLink]="['/']"
+       class="navbar-brand"
+    >ARF
+    </a>
     <ul class="nav">
+      <li class="nav-item">
+        <app-language></app-language>
+      </li>
       <li *ngIf="false" class="nav-item">
-        <a [routerLink]="['/register']" class="nav-link">{{ 'Sign up' | translate }}</a>
+        <a [routerLink]="['/register']"
+           routerLinkActive="active"
+           class="nav-link"
+        >{{ 'Sign up' | translate }}
+        </a>
       </li>
       <li *ngIf="true" class="nav-item">
-        <a [routerLink]="['/account']" class="nav-link">{{ 'Sign out' | translate }}</a>
+        <a class="nav-link"
+           (click)="signOut()"
+        >{{ 'Sign out' | translate }}
+        </a>
       </li>
       <li *ngIf="true" class="nav-item">
-        <a [routerLink]="['/account']" class="nav-link">{{ 'View info' | translate }}</a>
+        <a [routerLink]="['/account']"
+           routerLinkActive="active"
+           class="nav-link"
+        >{{ 'View info' | translate }}
+        </a>
       </li>
+
     </ul>
   </nav>
 </div>

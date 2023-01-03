@@ -5,11 +5,13 @@ import {
   passwordValidate,
   validateAddress,
   validateEmail,
-  validatePhoneNumber
-} from "./validator/register.validator";
+  validatePhoneNumber, validateBirthDate
+} from "../core/helper/register.validator";
 import {LOGIN_STATUS, REGISTERED_SUCCESS, SUCCESS} from "../core/constant/authen.constant";
 import {Router} from "@angular/router";
-import {IAlert} from "../core/model/alert.model";
+import {INotification} from "../core/model/notify.model";
+import {DatePipe} from "@angular/common";
+import {IAccount} from "../core/model/account.model";
 
 
 @Component({
@@ -19,7 +21,7 @@ import {IAlert} from "../core/model/alert.model";
 })
 export class RegisterComponent implements OnInit {
 
-  alert: IAlert;
+  notification: INotification;
   showPassword = false;
   formAcc: FormGroup;
   contextFirstName = {
@@ -47,7 +49,8 @@ export class RegisterComponent implements OnInit {
     inputId: 'bod',
     controlName: 'birthdate',
     labelName: 'Birth Date',
-    inputType: 'date'
+    inputType: 'date',
+    maxValue: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
   }
   contextPhone = {
     inputId: 'phone',
@@ -80,7 +83,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe
   ) {
   }
 
@@ -93,19 +97,19 @@ export class RegisterComponent implements OnInit {
     this.formAcc = this.fb.group({
         firstName: [],
         lastName: [],
-        email: [],
-        birthdate: [],
-        gender: ['male'],
-        phone: [],
-        address: [],
+        email: ['', [validateEmail]],
+        birthdate: ['', [validateBirthDate]],
+        gender: ['Male'],
+        phone: ['', [validatePhoneNumber]],
+        address: ['', [validateAddress]],
         password: [],
         confirm: [],
       },
       {
-        validators: [validateName, validateEmail, validatePhoneNumber, validateAddress, passwordValidate],
+        validators: [validateName, passwordValidate],
         updateOn: "blur"
       })
-    // this.initFormTest();
+    this.initFormTest();
   }
 
   togglePassword() {
@@ -114,12 +118,17 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.formAcc.markAsDirty();
+
+    Object.keys(this.formAcc.controls).forEach(field => {
+      const control = this.formAcc.get(field);
+      control.markAsDirty();
+      control.updateValueAndValidity();
+    })
     this.formAcc.markAllAsTouched();
     this.formAcc.updateValueAndValidity();
     setTimeout(() => {
         if (this.formAcc.valid) {
-          sessionStorage.setItem(LOGIN_STATUS, this.formAcc.value);
+          localStorage.setItem(LOGIN_STATUS, JSON.stringify(this.getAccountInfo()));
           this.setAlertMessage("success", SUCCESS, REGISTERED_SUCCESS);
           setTimeout(() => {
             this.router.navigate(['/']);
@@ -128,6 +137,26 @@ export class RegisterComponent implements OnInit {
       }
       , 0
     )
+  }
+
+  getAccountInfo(): IAccount {
+    const fullName = [
+      this.getControlValue('firstName'),
+      this.getControlValue('lastName')
+    ].join(' ');
+    return {
+      fullName: fullName,
+      birthDate: this.getControlValue('birthdate'),
+      gender: this.getControlValue('gender'),
+      phone: this.getControlValue('phone'),
+      email: this.getControlValue('email'),
+      address: this.getControlValue('address'),
+      password: this.getControlValue('password')
+    }
+  }
+
+  getControlValue(controlName: string): string {
+    return this.formAcc.get(controlName).value;
   }
 
   getNameAlert() {
@@ -150,34 +179,32 @@ export class RegisterComponent implements OnInit {
     return null;
   }
 
-  setAlertMessage(alertType: "success" | "error" | "warning" | null, title = "", message = "") {
-    if (alertType) {
-      this.alert = {
-        alertType: alertType,
+  setAlertMessage(notifyType: "success" | "error" | "warning" | null, title = "", message = "") {
+    if (notifyType) {
+      this.notification = {
+        notifyType: notifyType,
         title: title,
         message: message
       }
     } else {
-      this.alert = null;
+      this.notification = null;
     }
   }
 
-
   initFormTest = () =>
     this.formAcc = this.fb.group({
-        firstName: ['abc'],
-        lastName: ['def'],
-        email: ['abc@gmail.com'],
-        birthdate: [],
-        gender: ['male'],
-        phone: ['0923456789'],
-        address: ['abc abc abc'],
-        password: ['a1234567'],
-        confirm: ['a1234567'],
+        firstName: ['Duc'],
+        lastName: ['Le'],
+        email: ['ducle@gmail.com', [validateEmail]],
+        birthdate: ['', [validateBirthDate]],
+        gender: ['Male'],
+        phone: ['0327454684', [validatePhoneNumber]],
+        address: ['Ha noi', [validateAddress]],
+        password: ['duc123456'],
+        confirm: ['duc123456'],
       },
       {
-        validators: [validateName, validateEmail, validatePhoneNumber, validateAddress, passwordValidate],
+        validators: [validateName, passwordValidate],
         updateOn: "blur"
       })
-
 }

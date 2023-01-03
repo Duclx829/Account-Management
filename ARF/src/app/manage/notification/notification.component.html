@@ -1,0 +1,27 @@
+<div [ngClass]="{'show' : getNotify}"
+     class="alert-box {{getNotify && getNotify.notifyType}}">
+  <div class="alert-header">
+    <div class="alert-icon">
+      <!--error icon-->
+      <ion-icon *ngIf="getNotify && getNotify.notifyType === 'error'"
+                name="alert-circle-outline"
+      ></ion-icon>
+      <!--success icon-->
+      <ion-icon *ngIf="getNotify &&getNotify.notifyType == 'success'"
+                name="checkmark-circle-outline"
+      ></ion-icon>
+      <!--warning icon-->
+      <ion-icon *ngIf="getNotify && getNotify.notifyType == 'warning'"
+                name="checkmark-circle-outline"
+      ></ion-icon>
+      <!--alert title-->
+    </div>
+    <div class="alert-title">{{getNotify && getNotify.title | translate}}</div>
+  </div>
+  <!--alert message-->
+  <div class="alert-message">{{getNotify && getNotify.message | translate}}</div>
+</div>
+<!--overlay background-->
+<div [ngClass]="{'show' : getNotify}"
+     class="overlay"
+></div>

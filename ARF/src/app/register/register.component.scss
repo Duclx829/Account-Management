@@ -13,7 +13,8 @@
 }
 
 .frame {
-  width: 40%;
+  min-width: 850px;
+  width: 850px;
   border: 1px solid lightgray;
   box-sizing: border-box;
   border-radius: 10px;
@@ -24,12 +25,12 @@
   grid-template-columns: 1fr 1fr;
   padding: 40px;
 
-  &__left {
+  &-left {
     grid-column-start: 1;
     grid-column-end: 2;
   }
 
-  &__right {
+  &-right {
     grid-column-start: 2;
     grid-column-end: 3;
     display: flex;
@@ -38,7 +39,7 @@
     justify-content: center;
   }
 
-  &__img {
+  &-img {
     width: 60%;
     margin-left: 40px;
 
@@ -51,12 +52,12 @@
     }
   }
 
-  &__title {
+  &-title {
     margin: 5px 0 10px 0;
     font-size: 1.3rem;
   }
 
-  &__subtitle {
+  &-subtitle {
     font-size: 1.25rem;
     margin: 10px 0;
   }
@@ -66,7 +67,7 @@
   margin: 30px 0;
   box-sizing: border-box;
 
-  &__link {
+  &-link {
     text-decoration: none;
     font-weight: 600;
     font-size: 0.92em;
@@ -74,7 +75,7 @@
     color: var(--clr--blue);
   }
 
-  &__btn {
+  &-btn {
     background: var(--clr--blue);
     border: 0;
     outline: 0;
@@ -97,6 +98,9 @@
 
   .form-gender {
     margin: 20px 0 5px 0;
+    label{
+      margin-left: 5px;
+    }
   }
 }
 
@@ -124,12 +128,12 @@
   }
 
   .form-control[type='date'] {
-    opacity: 0;
-    transition: .2s;
+    //opacity: 0;
+    //transition: .2s;
   }
 
   .form-control[type='date']:focus {
-    opacity: 1;
+    //opacity: 1;
   }
 
   label {
@@ -142,14 +146,6 @@
     font-weight: lighter;
     color: var(--clr--gray);
     font-size: 0.85em;
-  }
-
-  .form-control:focus + label,
-  .form-control:not(:placeholder-shown):not([type='date']) + label {
-    top: 0;
-    font-size: .7em;
-    background: inherit;
-    box-shadow: 0 0 0 2px #fff;
   }
 
   .form-control:focus + label {
@@ -169,12 +165,19 @@
     box-shadow: 0 0 2px 1px var(--clr--danger) !important;
   }
 
+  .form-control:focus + label,
+  .form-control:not(:placeholder-shown) + label{
+    top: 0;
+    font-size: .7em;
+    background: inherit;
+    box-shadow: 0 0 0 2px #fff;
+  }
+
   &.danger:has(.form-control:focus) label,
   &.danger:has(.form-control:not(:placeholder-shown)) label {
     color: var(--clr--danger) !important;
   }
 }
-
 
 .text-dark {
   color: var(--clr--dark);

@@ -1,3 +1,29 @@
 <div class="container-fluid">
- <app-header> </app-header>
+  <app-header></app-header>
+  <div id="main">
+    <table>
+      <thead>
+      <tr>
+        <th width="10%">#</th>
+        <th width="20%">First Name</th>
+        <th width="20%">Last Name</th>
+        <th width="25%">Email</th>
+        <th width="25%" class="text-center">Avatar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users">
+        <th>{{user.id}}</th>
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <div class="img-frame">
+            <img [src]="user.avatar" alt="">
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

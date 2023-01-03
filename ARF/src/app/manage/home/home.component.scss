@@ -1,5 +1,61 @@
 .container-fluid {
   width: 100%;
-  height: auto;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: auto;
 }
+
+#main {
+  width: 85%;
+  margin: 70px auto;
+  font-family: sans-serif;
+}
+
+table {
+  min-width: 1050px;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0 30px;
+
+  tr {
+    transition: .3s;
+  }
+  tbody tr:hover{
+    background: #f6f6f6;
+  }
+
+  th {
+    text-align: left;
+    padding: 5px 0 5px 10px;
+  }
+
+  td {
+    padding: 5px 20px;
+    height: fit-content;
+  }
+
+  .img-frame {
+    border-radius: 50%;
+    width: 40%;
+    height: 0;
+    padding-top: 40%;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+}
+
+
 
