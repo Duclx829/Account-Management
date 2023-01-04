@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
 
     const prevSibling = ele.parentElement.previousElementSibling as HTMLElement;
     const navBar = ele.parentElement.parentElement;
-    const freeSpace = prevSibling.offsetLeft - navBar.offsetLeft;
+    const freeSpace = prevSibling.offsetLeft - navBar.offsetLeft - ele.offsetWidth;
     const randomMarginRight = Math.floor(Math.random() * freeSpace * 0.95);
     ele.style.marginRight = `${randomMarginRight}px`;
     this.clickTimes--;
