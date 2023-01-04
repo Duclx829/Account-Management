@@ -38,12 +38,14 @@
       -ms-transition: .15s;
       -o-transition: .15s;
       transition: .15s;
+
       &:hover{
         background: #f6f6f6;
         opacity: 1;
         color: #000;
       }
     }
+
     .active{
       color: #000;
     }

@@ -4,15 +4,17 @@
     <table>
       <thead>
       <tr>
-        <th width="10%">#</th>
-        <th width="20%">First Name</th>
-        <th width="20%">Last Name</th>
-        <th width="25%">Email</th>
-        <th width="25%" class="text-center">Avatar</th>
+        <th>#</th>
+        <th>{{ 'First Name' | translate}}</th>
+        <th>{{ 'Last Name' | translate }}</th>
+        <th>{{ 'Email' | translate}}</th>
+        <th class="text-center">{{ 'Avatar' | translate}}</th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let user of users">
+      <tbody *ngIf="users">
+      <tr *ngFor="let user of users; index as id"
+          [style]="{'--transition-delay': id*0.05 + 's'}"
+      >
         <th>{{user.id}}</th>
         <td>{{user.first_name}}</td>
         <td>{{user.last_name}}</td>

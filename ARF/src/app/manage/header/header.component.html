@@ -10,23 +10,24 @@
       <li class="nav-item">
         <app-language></app-language>
       </li>
-      <li *ngIf="false" class="nav-item">
+      <li *ngIf="isSignOut" class="nav-item">
         <a [routerLink]="['/register']"
            routerLinkActive="active"
            class="nav-link"
         >{{ 'Sign up' | translate }}
         </a>
       </li>
-      <li *ngIf="true" class="nav-item">
+      <li *ngIf="!isSignOut" class="nav-item">
         <a class="nav-link"
            (click)="signOut()"
         >{{ 'Sign out' | translate }}
         </a>
       </li>
-      <li *ngIf="true" class="nav-item">
+      <li *ngIf="!isSignOut" class="nav-item">
         <a [routerLink]="['/account']"
            routerLinkActive="active"
            class="nav-link"
+           (mouseover)="viewInfoSubmit($event)"
         >{{ 'View info' | translate }}
         </a>
       </li>

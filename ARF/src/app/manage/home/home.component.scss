@@ -17,16 +17,44 @@ table {
   border-collapse: separate;
   border-spacing: 0 30px;
 
-  tr {
-    transition: .3s;
-  }
-  tbody tr:hover{
-    background: #f6f6f6;
+  tbody tr {
+    opacity: 0;
+    transition: .15s;
+    animation: fade-in .5s linear var(--transition-delay) forwards;
+
+    &:hover {
+      background: #f6f6f6;
+    }
   }
 
   th {
     text-align: left;
     padding: 5px 0 5px 10px;
+  }
+
+  @mixin th-width($width) {
+    min-width: $width;
+    width: $width;
+  }
+
+  th:nth-child(1) {
+    @include th-width(10%);
+  }
+
+  th:nth-child(2) {
+    @include th-width(20%);
+  }
+
+  th:nth-child(3) {
+    @include th-width(20%);
+  }
+
+  th:nth-child(4) {
+    @include th-width(25%);
+  }
+
+  th:nth-child(5) {
+    @include th-width(25%);
   }
 
   td {
@@ -57,5 +85,12 @@ table {
 
 }
 
-
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 

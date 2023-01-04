@@ -17,14 +17,11 @@ export class LanguageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentLanguage = localStorage.getItem(LOCALE)
-      ? this.language[localStorage.getItem(LOCALE)]
-      : this.language[DEFAULT_LANGUAGE];
+    this.currentLanguage = this.language[this.translate.currentLang];
   }
 
 
   changeLang(key: string) {
-    localStorage.setItem(LOCALE, key);
     this.translate.use(key);
     this.currentLanguage = this.language[key];
   }

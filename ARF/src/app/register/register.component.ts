@@ -7,7 +7,7 @@ import {
   validateEmail,
   validatePhoneNumber, validateBirthDate
 } from "../core/helper/register.validator";
-import {LOGIN_STATUS, REGISTERED_SUCCESS, SUCCESS} from "../core/constant/authen.constant";
+import {EN_DATE_FORMAT, GENDER_MALE, LOGIN_STATUS, REGISTERED_SUCCESS, SUCCESS} from "../core/constant/authen.constant";
 import {Router} from "@angular/router";
 import {INotification} from "../core/model/notify.model";
 import {DatePipe} from "@angular/common";
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
     controlName: 'birthdate',
     labelName: 'Birth Date',
     inputType: 'date',
-    maxValue: this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+    maxValue: this.datePipe.transform(new Date(), EN_DATE_FORMAT)
   }
   contextPhone = {
     inputId: 'phone',
@@ -93,13 +93,12 @@ export class RegisterComponent implements OnInit {
   }
 
   initForm() {
-
     this.formAcc = this.fb.group({
         firstName: [],
         lastName: [],
         email: ['', [validateEmail]],
         birthdate: ['', [validateBirthDate]],
-        gender: ['Male'],
+        gender: [GENDER_MALE],
         phone: ['', [validatePhoneNumber]],
         address: ['', [validateAddress]],
         password: [],
@@ -109,7 +108,6 @@ export class RegisterComponent implements OnInit {
         validators: [validateName, passwordValidate],
         updateOn: "blur"
       })
-    this.initFormTest();
   }
 
   togglePassword() {
@@ -118,7 +116,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-
     Object.keys(this.formAcc.controls).forEach(field => {
       const control = this.formAcc.get(field);
       control.markAsDirty();
@@ -190,21 +187,4 @@ export class RegisterComponent implements OnInit {
       this.notification = null;
     }
   }
-
-  initFormTest = () =>
-    this.formAcc = this.fb.group({
-        firstName: ['Duc'],
-        lastName: ['Le'],
-        email: ['ducle@gmail.com', [validateEmail]],
-        birthdate: ['', [validateBirthDate]],
-        gender: ['Male'],
-        phone: ['0327454684', [validatePhoneNumber]],
-        address: ['Ha noi', [validateAddress]],
-        password: ['duc123456'],
-        confirm: ['duc123456'],
-      },
-      {
-        validators: [validateName, passwordValidate],
-        updateOn: "blur"
-      })
 }

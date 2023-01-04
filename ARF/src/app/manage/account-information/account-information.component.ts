@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LOGIN_STATUS} from "../../core/constant/authen.constant";
+import {LOGIN_STATUS, VN_DATE_FORMAT} from "../../core/constant/authen.constant";
 import {IAccount} from "../../core/model/account.model";
 import {DatePipe} from "@angular/common";
 import {TranslateService} from "@ngx-translate/core";
@@ -27,7 +27,7 @@ export class AccountInformationComponent implements OnInit {
     this.translate.stream(this.accountInfo.gender).subscribe((value: string) => {
       this.accountInfo.gender = value;
     })
-    this.accountInfo.birthDate = this.datePipe.transform(this.accountInfo.birthDate, 'dd-MM-yyyy')
+    this.accountInfo.birthDate = this.datePipe.transform(this.accountInfo.birthDate, VN_DATE_FORMAT)
   }
 
 }
